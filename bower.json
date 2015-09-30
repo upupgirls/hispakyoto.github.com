@@ -14,7 +14,7 @@
     "jquery": "~2.1.4"
   },
   "preen": {
-    "bootstrap": ["less/**", "dist/fonts/*", "js/*"],
+    "bootstrap": ["less/*", "dist/fonts/*", "js/*"],
     "jquery": ["dist/*"]
   }
 }

@@ -40,7 +40,7 @@ gulp.task('prettify', function() {
 
 //lessをcssに変換
 gulp.task('less', function() {
-  return gulp.src('less/bootstrap.less')
+  return gulp.src('vendor/less/bootstrap.less')
     .pipe(less())
     .pipe(gulp.dest('./dist/css'))
     .pipe(rename({
@@ -53,13 +53,13 @@ gulp.task('less', function() {
 //bootstrapからコピーしてきたjsを結合
 gulp.task('scripts', function() {
   return gulp.src([
-      'js/transition.js',
-      'js/alert.js',
-      'js/button.js',
-      'js/collapse.js',
-      'js/dropdown.js',
-      'js/tooltip.js',
-      'js/tab.js'
+      'vendor/js/transition.js',
+      'vendor/js/alert.js',
+      'vendor/js/button.js',
+      'vendor/js/collapse.js',
+      'vendor/js/dropdown.js',
+      'vendor/js/tooltip.js',
+      'vendor/js/tab.js'
     ])
     .pipe(concat('bootstrap.tmp.js'))
     .pipe(uglify())
@@ -68,6 +68,10 @@ gulp.task('scripts', function() {
       'cat includes/bs-license.txt dist/js/bootstrap.tmp.js > dist/js/bootstrap.min.js',
       'rm dist/js/bootstrap.tmp.js'
     ]));
+});
+
+gulp.task('js', function(){
+  return gulp.src()
 });
 
 gulp.task('watch', function() {
