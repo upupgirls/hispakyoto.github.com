@@ -52,5 +52,6 @@ pids
 logs
 results
 # build
+dist
 /less
 /js
