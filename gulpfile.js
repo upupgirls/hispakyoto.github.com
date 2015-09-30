@@ -8,7 +8,6 @@ var uglify = require('gulp-uglify');
 var shell = require('gulp-shell');
 var ejs = require('gulp-ejs');
 var sass = require("gulp-ruby-sass");
-var ghPages = require("gulp-gh-pages");
 var browserSync = require('browser-sync');
 
 gulp.task("bs",function(){
@@ -67,11 +66,6 @@ gulp.task('scripts', function() {
       'cat includes/bs-license.txt dist/js/bootstrap.tmp.js > dist/js/bootstrap.min.js',
       'rm dist/js/bootstrap.tmp.js'
     ]));
-});
-
-gulp.task('deploy', function() {
-  return gulp.src('./dist/')
-    .pipe(ghPages());
 });
 
 gulp.task('watch', function() {
