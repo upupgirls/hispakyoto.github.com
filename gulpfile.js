@@ -8,6 +8,7 @@ var uglify = require('gulp-uglify');
 var shell = require('gulp-shell');
 var ejs = require('gulp-ejs');
 var sass = require("gulp-ruby-sass");
+var plumber = require("gulp-plumber");
 var browserSync = require('browser-sync');
 
 gulp.task("bs",function(){
@@ -20,6 +21,7 @@ gulp.task("bs",function(){
 
 gulp.task('ejs', function(){
   return gulp.src(["ejs/**/*.ejs",'!' + "ejs/**/_*.ejs"])
+    .pipe(plumber())
     .pipe(ejs())
     .pipe(gulp.dest("./dist/"))
     //ejsを編集するたびブラウザがリロードされる
