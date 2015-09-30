@@ -52,5 +52,6 @@ pids
 logs
 results
 # build
+/ejs
 /less
 /js

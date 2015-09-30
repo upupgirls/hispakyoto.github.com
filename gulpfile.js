@@ -8,6 +8,7 @@ var uglify = require('gulp-uglify');
 var shell = require('gulp-shell');
 var ejs = require('gulp-ejs');
 var sass = require("gulp-ruby-sass");
+var ghPages = require("gulp-gh-pages");
 var browserSync = require('browser-sync');
 
 gulp.task("bs",function(){
@@ -68,10 +69,15 @@ gulp.task('scripts', function() {
     ]));
 });
 
+gulp.task('deploy', function() {
+  return gulp.src('./dist/**/*')
+    .pipe(ghPages());
+});
+
 gulp.task('watch', function() {
   gulp.watch(['ejs/*.ejs'], ['ejs']);
   gulp.watch(['dist/*.html'], ['prettify']);
   gulp.watch(['less/**'], ['less']);
 });
 
-gulp.task('default', ['ejs', 'prettify', 'less', 'scripts', 'bs', 'watch']);
+gulp.task('default', ['ejs', 'prettify', 'less', 'scripts', 'bs','watch']);
