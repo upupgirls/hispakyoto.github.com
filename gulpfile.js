@@ -22,6 +22,8 @@ gulp.task('ejs', function(){
   return gulp.src(["ejs/**/*.ejs",'!' + "ejs/**/_*.ejs"])
     .pipe(ejs())
     .pipe(gulp.dest("./dist/"))
+    //ejsを編集するたびブラウザがリロードされる
+    .pipe(browserSync.reload({ stream: true }));
 });
 
 gulp.task('prettify', function() {
