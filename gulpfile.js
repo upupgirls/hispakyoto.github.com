@@ -9,8 +9,10 @@ var shell = require('gulp-shell');
 var ejs = require('gulp-ejs');
 var sass = require("gulp-ruby-sass");
 var plumber = require("gulp-plumber");
+var imagemin = require("gulp-imagemin");
 var browserSync = require('browser-sync');
 
+// BrowserSync & Server
 gulp.task("bs",function(){
   browserSync({
     server: {
@@ -19,7 +21,10 @@ gulp.task("bs",function(){
   });
 });
 
-gulp.task('ejs', function(){
+/**
+ * Build
+ */
+gulp.task('build:html', function(){
   return gulp.src(["src/**/*.ejs",'!' + "src/**/_*.ejs"])
     .pipe(plumber())
     .pipe(ejs())
@@ -29,7 +34,7 @@ gulp.task('ejs', function(){
 });
 
 
-gulp.task('less', function() {
+gulp.task('build:css', function() {
   return gulp.src('src/less/*.less')
     .pipe(less())
     .pipe(gulp.dest('./dist/css'))
@@ -37,14 +42,14 @@ gulp.task('less', function() {
 });
 
 // sassを使う場合はこっちをつかう
-// gulp.task('sass', function() {
+// gulp.task('build:css', function() {
 //   return gulp.src('src/sass/*.scss')
 //     .pipe(sass())
 //     .pipe(gulp.dest('./dist/css'))
 //     .pipe(browserSync.reload({ stream: true }));
 // });
 
-gulp.task('js', function() {
+gulp.task('build:js', function() {
   return gulp.src('src/js/*.js')
   .pipe(uglify())
   .pipe(gulp.dest('./dist/js'))
@@ -93,14 +98,22 @@ gulp.task('bootstrapJs', function() {
     ]));
 });
 
-
-gulp.task('watch', function() {
-  gulp.watch(['src/**/*.ejs'], ['ejs']);
-  gulp.watch(['src/less/*.less'], ['less']);
-  // gulp.watch(['src/sass/*.scss'], ['sass']);
-  gulp.watch(['src/js/*.js'], ['js']);
-  gulp.watch(['dist/*.html'], ['prettify']);
-  gulp.watch(['vendor/less/**'], ['bootstrapLess']);
+gulp.task('imagemin', function(){
+  return gulp.src('src/images/**')
+    .pipe(imagemin({
+      optimizationLevel: 3
+    }))
+    .pipe(gulp.dest('dist/images/'))
 });
 
-gulp.task('default', ['ejs', 'less', /*'sass',*/ 'js', 'prettify', 'bootstrapLess', 'bootstrapJs', 'bs', 'watch']);
+gulp.task('watch', function() {
+  gulp.watch(['src/**/*.ejs'], ['buld:html']);
+  gulp.watch(['src/less/*.less'], ['build:css']);
+  // gulp.watch(['src/sass/*.scss'], ['build:css']);
+  gulp.watch(['src/js/*.js'], ['build:js']);
+  gulp.watch(['dist/*.html'], ['prettify']);
+  gulp.watch(['vendor/less/**'], ['bootstrapLess']);
+  gulp.watch(['src/images/**'], ['imagemin']);
+});
+
+gulp.task('default', ['build:html', 'build:css', 'build:js', 'prettify', 'bootstrapLess', 'bootstrapJs', 'bs', 'watch']);
