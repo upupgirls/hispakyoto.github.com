@@ -20,12 +20,35 @@ gulp.task("bs",function(){
 });
 
 gulp.task('ejs', function(){
-  return gulp.src(["ejs/**/*.ejs",'!' + "ejs/**/_*.ejs"])
+  return gulp.src(["src/**/*.ejs",'!' + "src/**/_*.ejs"])
     .pipe(plumber())
     .pipe(ejs())
     .pipe(gulp.dest("./dist/"))
     //ejsを編集するたびブラウザがリロードされる
     .pipe(browserSync.reload({ stream: true }));
+});
+
+
+gulp.task('less', function() {
+  return gulp.src('src/less/*.less')
+    .pipe(less())
+    .pipe(gulp.dest('./dist/css'))
+    .pipe(browserSync.reload({ stream: true }));
+});
+
+// sassを使う場合はこっちをつかう
+// gulp.task('sass', function() {
+//   return gulp.src('src/sass/*.scss')
+//     .pipe(sass())
+//     .pipe(gulp.dest('./dist/css'))
+//     .pipe(browserSync.reload({ stream: true }));
+// });
+
+gulp.task('js', function() {
+  return gulp.src('src/js/*.js')
+  .pipe(uglify())
+  .pipe(gulp.dest('./dist/js'))
+  .pipe(browserSync.reload({ stream: true }));
 });
 
 gulp.task('prettify', function() {
@@ -39,8 +62,8 @@ gulp.task('prettify', function() {
 });
 
 //lessをcssに変換
-gulp.task('less', function() {
-  return gulp.src('vendor/less/bootstrap.less')
+gulp.task('bootstrapLess', function() {
+  return gulp.src('./vendor/less/bootstrap.less')
     .pipe(less())
     .pipe(gulp.dest('./dist/css'))
     .pipe(rename({
@@ -51,7 +74,7 @@ gulp.task('less', function() {
 });
 
 //bootstrapからコピーしてきたjsを結合
-gulp.task('scripts', function() {
+gulp.task('bootstrapJs', function() {
   return gulp.src([
       'vendor/js/transition.js',
       'vendor/js/alert.js',
@@ -70,14 +93,14 @@ gulp.task('scripts', function() {
     ]));
 });
 
-gulp.task('js', function(){
-  return gulp.src()
-});
 
 gulp.task('watch', function() {
-  gulp.watch(['ejs/*.ejs'], ['ejs']);
+  gulp.watch(['src/**/*.ejs'], ['ejs']);
+  gulp.watch(['src/less/*.less'], ['less']);
+  // gulp.watch(['src/sass/*.scss'], ['sass']);
+  gulp.watch(['src/js/*.js'], ['js']);
   gulp.watch(['dist/*.html'], ['prettify']);
-  gulp.watch(['less/**'], ['less']);
+  gulp.watch(['vendor/less/**'], ['bootstrapLess']);
 });
 
-gulp.task('default', ['ejs', 'prettify', 'less', 'scripts', 'bs','watch']);
+gulp.task('default', ['ejs', 'less', /*'sass',*/ 'js', 'prettify', 'bootstrapLess', 'bootstrapJs', 'bs', 'watch']);
