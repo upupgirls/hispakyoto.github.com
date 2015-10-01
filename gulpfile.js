@@ -29,7 +29,6 @@ gulp.task('build:html', function(){
     .pipe(plumber())
     .pipe(ejs())
     .pipe(gulp.dest("./dist/"))
-    //ejsを編集するたびブラウザがリロードされる
     .pipe(browserSync.reload({ stream: true }));
 });
 
@@ -107,7 +106,7 @@ gulp.task('imagemin', function(){
 });
 
 gulp.task('watch', function() {
-  gulp.watch(['src/**/*.ejs'], ['buld:html']);
+  gulp.watch(['src/**/*.ejs'], ['build:html']);
   gulp.watch(['src/less/*.less'], ['build:css']);
   // gulp.watch(['src/sass/*.scss'], ['build:css']);
   gulp.watch(['src/js/*.js'], ['build:js']);
