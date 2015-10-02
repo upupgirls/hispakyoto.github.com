@@ -1,0 +1,1 @@
+function $(n){return document.getElementById(n)}function random(){ransu=Math.floor(10*Math.random());var n=$("uranai");return ransu<=6?n.innerHTML='<p class="ichiban">一番<br />ついてるかも！</p> <img src="images/image_20151002145726.jpg">':n.innerHTML='<p class="busu">ブス</p><img src="images/image_20151002145259.jpg">',!1}$("startBtn").onclick=random;

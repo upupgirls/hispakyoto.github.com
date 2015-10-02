@@ -85,7 +85,8 @@ gulp.task('bootstrapJs', function() {
       'vendor/js/collapse.js',
       'vendor/js/dropdown.js',
       'vendor/js/tooltip.js',
-      'vendor/js/tab.js'
+      'vendor/js/tab.js',
+      'vendor/js/modal.js'
     ])
     .pipe(concat('bootstrap.tmp.js'))
     .pipe(uglify())
