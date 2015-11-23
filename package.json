@@ -1,7 +1,7 @@
 {
   "name": "miyazaki.github.com",
   "version": "1.0.0",
-  "description": "up up girls tour miyazaki and kumamoto",
+  "description": "up up girls Hispart Rave Fes",
   "scripts": {
     "postinstall": "bower install; preen; bash bootstrap.sh",
     "start": "gulp",
@@ -15,7 +15,7 @@
     "gulp-concat": "^2.4.3",
     "gulp-csso": "^0.2.9",
     "gulp-ejs": "^1.2.1",
-    "gulp-gh-pages": "^0.5.2",
+    "gulp-gh-pages": "^0.5.4",
     "gulp-imagemin": "^2.3.0",
     "gulp-less": "^3.0.3",
     "gulp-plumber": "^1.0.1",

@@ -12,6 +12,8 @@ var plumber = require("gulp-plumber");
 var imagemin = require("gulp-imagemin");
 var autoprefixer = require("gulp-autoprefixer")
 var browserSync = require('browser-sync');
+var ghPages = require('gulp-gh-pages');
+
 
 // BrowserSync & Server
 gulp.task("bs",function(){
@@ -107,6 +109,14 @@ gulp.task('imagemin', function(){
       optimizationLevel: 3
     }))
     .pipe(gulp.dest('dist/images/'))
+});
+
+/**
+ * deploy
+ */
+gulp.task('deploy', function() {
+  return gulp.src('./dist/**')
+    .pipe(ghPages());
 });
 
 gulp.task('watch', function() {
